@@ -1,12 +1,12 @@
 <template>
 <div class="icons">
-  <swiper :options="swiperOption">
+  <swiper :options="swiperOption" v-if="showSwiper">
     <swiper-slide v-for="(page, index) of pages" :key="index">
     <div class="icon" v-for="item of page" :key="item.id">
       <div class="icon-img">
         <img class="icon-image-content" :src="item.imgUrl" />
       </div>
-      <p class="icon-desc">{{item.desc}}</p>
+      <p class="icon-desc">{{item.des}}</p>
     </div>
     </swiper-slide>
   </swiper>
@@ -16,58 +16,20 @@
 <script>
 export default {
   name: 'HomeIcons',
+  props: {
+    list: Array
+  },
   data () {
     return {
       swiperOption: {
-        loop: true
-      },
-      iconList: [{
-        id: '0001',
-        imgUrl: 'https://imgs.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-        desc: '景点门票'
-      }, {
-        id: '0002',
-        imgUrl: 'https://imgs.qunarzz.com/piao/fusion/1804/ff/fdf170ee89594b02.png',
-        desc: '南宁必游'
-      }, {
-        id: '0003',
-        imgUrl: 'https://imgs.qunarzz.com/piao/fusion/1803/75/eca3ce656c886502.png',
-        desc: '漂流'
-      }, {
-        id: '0004',
-        imgUrl: 'https://imgs.qunarzz.com/piao/fusion/1803/95/8246f27355943202.png',
-        desc: '游乐场'
-      }, {
-        id: '0005',
-        imgUrl: 'https://imgs.qunarzz.com/piao/fusion/1803/bd/9f7b9b2b60c1502.png',
-        desc: '赏花踏青'
-      }, {
-        id: '0006',
-        imgUrl: 'https://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20194/b6e35d0668c434f6db6d7de07af3a307.png',
-        desc: '青秀山'
-      }, {
-        id: '0007',
-        imgUrl: 'https://imgs.qunarzz.com/piao/fusion/1803/76/eb88861d78fb9902.png',
-        desc: '动植物园'
-      }, {
-        id: '0008',
-        imgUrl: 'https://imgs.qunarzz.com/piao/fusion/1803/50/26ffa31b56646402.png',
-        desc: '海底世界'
-      }, {
-        id: '0009',
-        imgUrl: 'https://imgs.qunarzz.com/piao/fusion/1803/3e/86314b2af03b7502.png',
-        desc: '水上乐园'
-      }, {
-        id: '0010',
-        imgUrl: 'https://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20194/61777d2a3d0de705d6c7dd7d6861b02a.png',
-        desc: '南宁园博园'
-      }]
+        autoplay: false
+      }
     }
   },
   computed: {
     pages () {
       const pages = []
-      this.iconList.forEach((item, index) => {
+      this.list.forEach((item, index) => {
         const page = Math.floor(index / 8)
         if (!pages[page]) {
           pages[page] = []
@@ -75,6 +37,9 @@ export default {
         pages[page].push(item)
       })
       return pages
+    },
+    showSwiper () {
+      return this.list.length
     }
   }
 }
