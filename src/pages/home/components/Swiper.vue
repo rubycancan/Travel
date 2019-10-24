@@ -23,9 +23,10 @@ export default {
         pagination: '.swiper-pagination',
         loop: true,
         autoplay: 5000,
-
         // 播放的速度
-        speed: 3000
+        speed: 3000,
+        observeParents: true,
+        observer: true
         // autoplay: true,
         // speed: 10000
       }

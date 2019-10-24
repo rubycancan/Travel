@@ -44,6 +44,11 @@ export default {
     },
     getHomeInfoSucc (res) {
       res = res.data
+      if (res.ret === false) {
+        alert('该城市尚未开放，敬请期待~')
+        this.$router.push('/city')
+        return
+      }
       if (res.ret && res.data) {
         const data = res.data
         this.swiperList = data.swiperList
