@@ -2,7 +2,7 @@
   <div>
     <div
       class="item"
-      v-for="(item, index) of list"
+      v-for="(item, index) of ticketList"
       :key="index"
     >
       <div class="item-title border-bottom">
@@ -20,7 +20,26 @@
 export default {
   name: 'DetailList',
   props: {
-    list: Array
+    list: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
+  data () {
+    return {
+      noTicket: [{title: '景点门票尚未上线，敬请期待......'}]
+    }
+  },
+  computed: {
+    ticketList () {
+      if (this.list.length !== 0) {
+        return this.list
+      } else {
+        return this.noTicket
+      }
+    }
   }
 }
 </script>
@@ -41,5 +60,9 @@ export default {
       background-size: .4rem 3rem
       margin-right: .1rem
   .item-children
-    padding: 0 .3rem
+    padding: 0 .1rem
+    .item-title
+      font-size: .3rem
+    .item-title-icon
+      display: inline
 </style>

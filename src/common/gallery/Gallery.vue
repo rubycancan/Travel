@@ -3,7 +3,7 @@
     <div class="wrapper">
       <swiper :options="swiperOptions">
         <!-- slides -->
-        <swiper-slide v-for="(item, index) in imgs" :key="index">
+        <swiper-slide v-for="(item, index) in gallery" :key="index">
           <img class="gallery-img" :src="item" />
         </swiper-slide>
         <!-- Optional controls -->
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import picture from '../../assets/images/no-picture.png'
 export default {
   name: 'CommonGallery',
   props: {
@@ -26,6 +27,7 @@ export default {
   },
   data () {
     return {
+      noImage: [picture],
       swiperOptions: {
         pagination: '.swiper-pagination',
         paginationType: 'fraction',
@@ -37,6 +39,15 @@ export default {
   methods: {
     handleGalleryClick () {
       this.$emit('close')
+    }
+  },
+  computed: {
+    gallery () {
+      if (this.imgs.length !== 0) {
+        return this.imgs
+      } else {
+        return this.noImage
+      }
     }
   }
 }

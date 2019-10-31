@@ -1,19 +1,19 @@
 <template>
   <div>
     <div class="banner" @click="handleBannerClick">
-      <img class="banner-img" alt="" src="http://img1.qunarzz.com/sight/p0/201212/24/711e05d23489891893835fbb.png_600x330_10f147c1.png" />
+      <img class="banner-img" alt="" :src="showBanner" />
       <div class="banner-info">
         <div class="banner-title">
-          南宁海底世界(AAAA景区)
+         {{this.sightName}}
         </div>
         <div class="banner-number">
           <span class="iconfont banner-icon">&#xe692;</span>
-          8
+         {{this.length}}
         </div>
       </div>
     </div>
     <common-gallary
-      :imgs="imgs"
+      :imgs="bannerImgs"
       v-show="showGallery"
       @close="handleGalleryClose"
     ></common-gallary>
@@ -21,15 +21,38 @@
 </template>
 
 <script>
+import picture from '../../../assets/images/no-picture.png'
 import CommonGallary from 'common/gallery/Gallery'
 export default {
   name: 'DetailBanner',
+  props: {
+    sightName: String,
+    bannerImg: String,
+    bannerImgs: Array
+  },
   data () {
     return {
       showGallery: false,
-      imgs: ['http://img1.qunarzz.com/sight/p0/201212/24/711e05d23489891893835fbb.png_r_800x800_0222ecaa.png',
-        'http://img1.qunarzz.com/sight/p0/1412/4b/1f55d0cff9b73c1dfcf5593032d44b0d.water.jpg_r_800x800_ff3f3c6b.jpg',
-        'http://img1.qunarzz.com/sight/p0/201212/24/583f44054b12278693835fbb.png_r_800x800_54fb1cb4.png']
+      // imgs: ['http://img1.qunarzz.com/sight/p0/201212/24/711e05d23489891893835fbb.png_r_800x800_0222ecaa.png',
+      //   'http://img1.qunarzz.com/sight/p0/1412/4b/1f55d0cff9b73c1dfcf5593032d44b0d.water.jpg_r_800x800_ff3f3c6b.jpg',
+      //   'http://img1.qunarzz.com/sight/p0/201212/24/583f44054b12278693835fbb.png_r_800x800_54fb1cb4.png']
+      showBanner: this.bannerImg
+    }
+  },
+  computed: {
+    length () {
+      if (this.bannerImgs) {
+        return this.bannerImgs.length
+      } else {
+        return 0
+      }
+    },
+    banner () {
+      if (this.bannerImg) {
+        return this.bannerImg
+      } else {
+        return picture
+      }
     }
   },
   methods: {
@@ -38,10 +61,23 @@ export default {
     },
     handleGalleryClose () {
       this.showGallery = false
+    },
+    getBanner () {
+      setTimeout(() => {
+        this.showBanner = this.banner
+      }, 300)
+      setTimeout(() => {
+        if (this.showBanner !== this.banner) {
+          this.showBanner = this.banner
+        }
+      }, 800)
     }
   },
   components: {
     CommonGallary
+  },
+  mounted () {
+    this.getBanner()
   }
 }
 </script>
@@ -52,6 +88,7 @@ export default {
     overflow: hidden
     height: 0
     padding-bottom: 55%
+    background-color: black
     .banner-img
       width: 100%
     .banner-info
