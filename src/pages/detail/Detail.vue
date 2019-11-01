@@ -85,5 +85,5 @@ export default {
 
 <style lang="stylus" scoped>
   .content
-    height: 30rem
+   margin-bottom: 1rem
 </style>

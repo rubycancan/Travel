@@ -7,7 +7,7 @@
           class="item border-bottom"
           v-for="item of list"
           :key="item.id"
-          :to="'/detail/' + item.id"
+          :to="'/detail/' + item.scenery_id"
         >
           <img alt="" class="item-img" :src="item.imgUrl" />
           <div class="item-info">
